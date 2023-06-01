@@ -113,3 +113,9 @@ func ParentSuite(parentSuite string) Option {
 		r.addLabel("parentSuite", parentSuite)
 	}
 }
+
+func CustomLabel(customLabel, labelValue string) Option {
+	return func(r hasOptions) {
+		r.addLabel(customLabel, labelValue)
+	}
+}
