@@ -113,14 +113,14 @@ func (sc *subContainer) getStatus() string {
 
 func getCurrentTestPhaseObject(t *testing.T) *testPhaseContainer {
 	var currentPhaseObject *testPhaseContainer
-	if phaseContainer, ok := testPhaseObjects[t.Name()]; ok {
-		currentPhaseObject = phaseContainer
+	if phaseContainer, ok := testPhaseObjects.Load(t.Name()); ok {
+		currentPhaseObject = phaseContainer.(*testPhaseContainer)
 	} else {
 		currentPhaseObject = &testPhaseContainer{
 			Befores: make([]*container, 0),
 			Afters:  make([]*container, 0),
 		}
-		testPhaseObjects[t.Name()] = currentPhaseObject
+		testPhaseObjects.Store(t.Name(), currentPhaseObject)
 	}
 
 	return currentPhaseObject
