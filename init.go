@@ -11,7 +11,7 @@ var (
 	resultsPath      string
 	createFolderOnce sync.Once
 	copyEnvFileOnce  sync.Once
-	testPhaseObjects map[string]*testPhaseContainer
+	testPhaseObjects sync.Map
 )
 
 const (
@@ -25,5 +25,5 @@ const (
 
 func init() {
 	ctxMgr = gls.NewContextManager()
-	testPhaseObjects = make(map[string]*testPhaseContainer)
+	testPhaseObjects = sync.Map{}
 }
